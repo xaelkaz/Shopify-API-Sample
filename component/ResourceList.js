@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import { useQuery } from 'react-apollo';
+import { StoreReader } from 'apollo-boost';
 
 
 const GET_PRODUCTS_BY_ID = gql`
@@ -30,3 +32,14 @@ const GET_PRODUCTS_BY_ID = gql`
     }
 `;
  
+function ResourceList() {
+    const {loading, error, data} = useQuery(GET_PRODUCTS_BY_ID, {variables: { ids: store.get('ids')}})
+    return(
+        <div>
+            <h1>
+            Product List
+            </h1>
+        </div>
+    )
+}
+export default ResourceList;

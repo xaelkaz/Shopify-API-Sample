@@ -88,10 +88,78 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./component/ResourceList.js":
+/*!***********************************!*\
+  !*** ./component/ResourceList.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_3__);
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const GET_PRODUCTS_BY_ID = graphql_tag__WEBPACK_IMPORTED_MODULE_1___default.a`
+    query getProducts($ids: [ID!]!) {
+        nodes(ids: $ids) {
+            ... on Product {
+                title
+                handle
+                descriptionHtml
+                id
+                images(first: 1) {
+                    edges {
+                        node {
+                            originalSrc
+                            altText
+                        }
+                    }
+                }
+                variants(first: 1) {
+                    edges {
+                        node {
+                            price
+                            id
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+function ResourceList() {
+  const {
+    loading,
+    error,
+    data
+  } = Object(react_apollo__WEBPACK_IMPORTED_MODULE_2__["useQuery"])(GET_PRODUCTS_BY_ID, {
+    variables: {
+      ids: store.get('ids')
+    }
+  });
+  return __jsx("div", null, __jsx("h1", null, "Product List"));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (ResourceList);
+
+/***/ }),
 
 /***/ "./pages/index.js":
 /*!************************!*\
@@ -110,7 +178,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! store-js */ "store-js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _component_ResourceList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/ResourceList */ "./component/ResourceList.js");
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
+
 
 
 
@@ -150,7 +220,7 @@ function Index() {
     onCancel: () => setResourceModal({
       open: false
     })
-  }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
+  }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
     heading: "Discount your products temporarily",
     action: {
       content: 'Select products',
@@ -159,14 +229,14 @@ function Index() {
       })
     },
     image: img
-  }, __jsx("p", null, "Select products to change their price temporarily."))));
+  }, __jsx("p", null, "Select products to change their price temporarily.")) : __jsx(_component_ResourceList__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -200,6 +270,28 @@ module.exports = require("@shopify/polaris");
 
 /***/ }),
 
+/***/ "apollo-boost":
+/*!*******************************!*\
+  !*** external "apollo-boost" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-boost");
+
+/***/ }),
+
+/***/ "graphql-tag":
+/*!******************************!*\
+  !*** external "graphql-tag" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-tag");
+
+/***/ }),
+
 /***/ "react":
 /*!************************!*\
   !*** external "react" ***!
@@ -208,6 +300,17 @@ module.exports = require("@shopify/polaris");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-apollo":
+/*!*******************************!*\
+  !*** external "react-apollo" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-apollo");
 
 /***/ }),
 

@@ -2,6 +2,7 @@ import { EmptyState, Layout, Page } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import React, { Component, useState } from "react";
 import store from 'store-js';
+import ResourceList from '../component/ResourceList'
 
 function Index() {
 
@@ -32,6 +33,7 @@ function Index() {
         onCancel={ () => setResourceModal({ open: false }) }
       />
       <Layout>
+        { emptyState ? 
         <EmptyState
           heading="Discount your products temporarily"
           action={ {
@@ -42,6 +44,8 @@ function Index() {
         >
           <p>Select products to change their price temporarily.</p>
         </EmptyState>
+        : <ResourceList />
+      }
       </Layout>
     </Page>
   );
