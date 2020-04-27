@@ -108,60 +108,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! store-js */ "store-js");
+/* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_3__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
+function Index() {
+  const {
+    0: resourceModal,
+    1: setResourceModal
+  } = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    open: false
+  });
+  const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
-class Index extends react__WEBPACK_IMPORTED_MODULE_2__["Component"] {
-  constructor(...args) {
-    super(...args);
-
-    _defineProperty(this, "state", {
+  const handleSelection = resources => {
+    const idsFromResources = resources.selection.map(product => product.id);
+    setResourceModal({
       open: false
     });
+    store_js__WEBPACK_IMPORTED_MODULE_3___default.a.set('ids', idsFromResources);
+    console.log('this is product ids', store_js__WEBPACK_IMPORTED_MODULE_3___default.a.get('ids'));
+  };
 
-    _defineProperty(this, "handleSelection", resources => {
-      const idsFromResources = resources.selection.map(product => product.id);
-      this.setState({
-        open: false
-      });
-      console.log(idsFromResources);
-    });
-  }
-
-  render() {
-    return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Page"], null, __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
-      primaryAction: {
-        content: 'Select products',
-        onAction: () => this.setState({
-          open: true
-        })
-      }
-    }), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["ResourcePicker"], {
-      resourceType: "Product",
-      showVariants: false,
-      open: this.state.open,
-      onSelection: resources => this.handleSelection(resources),
-      onCancel: () => this.setState({
-        open: false
+  const emptyState = !store_js__WEBPACK_IMPORTED_MODULE_3___default.a.get('ids');
+  return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Page"], null, __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
+    primaryAction: {
+      content: 'Select products',
+      onAction: () => setResourceModal({
+        open: true
       })
-    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
-      heading: "Discount your products temporarily",
-      action: {
-        content: 'Select products',
-        onAction: () => this.setState({
-          open: true
-        })
-      },
-      image: img
-    }, __jsx("p", null, "Select products to change their price temporarily."))));
-  }
-
+    }
+  }), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["ResourcePicker"], {
+    resourceType: "Product",
+    showVariants: false,
+    open: resourceModal.open,
+    onSelection: resources => handleSelection(resources),
+    onCancel: () => setResourceModal({
+      open: false
+    })
+  }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
+    heading: "Discount your products temporarily",
+    action: {
+      content: 'Select products',
+      onAction: () => setResourceModal({
+        open: true
+      })
+    },
+    image: img
+  }, __jsx("p", null, "Select products to change their price temporarily."))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
@@ -210,6 +208,17 @@ module.exports = require("@shopify/polaris");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "store-js":
+/*!***************************!*\
+  !*** external "store-js" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("store-js");
 
 /***/ })
 

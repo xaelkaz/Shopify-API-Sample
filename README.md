@@ -34,5 +34,8 @@ https://shopify.dev/tutorials/build-a-shopify-app-with-node-and-react
 - Polairs
   https://polaris.shopify.com/
 
+- https://shopify.dev/tools/app-bridge
 
-  // Estandares de react, con los estandares de shopify para la creacion de sus temas.
+- https://polaris.shopify.com/experiences/layout
+
+- https://shopify-graphiql-app.shopifycloud.com/login
