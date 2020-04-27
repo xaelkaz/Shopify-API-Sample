@@ -316,6 +316,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json");
 var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_7___namespace = /*#__PURE__*/__webpack_require__.t(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json", 1);
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_9__);
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -325,6 +329,13 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
+
+const client = new apollo_boost__WEBPACK_IMPORTED_MODULE_8___default.a({
+  fetchOptions: {
+    credentials: 'include'
+  }
+});
 
 class MyApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
   render() {
@@ -337,13 +348,15 @@ class MyApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
       shopOrigin: js_cookie__WEBPACK_IMPORTED_MODULE_5___default.a.get("shopOrigin"),
       forceRedirect: true
     };
-    return __jsx("div", null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_2___default.a, null, __jsx("title", null, "Sample App"), __jsx("meta", {
+    return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_2___default.a, null, __jsx("title", null, "Sample App"), __jsx("meta", {
       charSet: "utf-8"
     })), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
       config: config
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["AppProvider"], {
       i18n: _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_7__
-    }, __jsx(Component, pageProps))));
+    }, __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_9__["ApolloProvider"], {
+      client: client
+    }, __jsx(Component, pageProps)))));
   }
 
 }
@@ -386,6 +399,17 @@ module.exports = require("@shopify/polaris");
 
 /***/ }),
 
+/***/ "apollo-boost":
+/*!*******************************!*\
+  !*** external "apollo-boost" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-boost");
+
+/***/ }),
+
 /***/ "js-cookie":
 /*!****************************!*\
   !*** external "js-cookie" ***!
@@ -416,6 +440,17 @@ module.exports = require("next/head");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-apollo":
+/*!*******************************!*\
+  !*** external "react-apollo" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-apollo");
 
 /***/ })
 
