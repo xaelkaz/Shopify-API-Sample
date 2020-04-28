@@ -93,10 +93,10 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./component/ResourceList.js":
-/*!***********************************!*\
-  !*** ./component/ResourceList.js ***!
-  \***********************************/
+/***/ "./component/ProductList.js":
+/*!**********************************!*\
+  !*** ./component/ProductList.js ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -108,10 +108,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
 /* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @shopify/polaris */ "@shopify/polaris");
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! store-js */ "store-js");
+/* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_4__);
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -144,20 +147,47 @@ const GET_PRODUCTS_BY_ID = graphql_tag__WEBPACK_IMPORTED_MODULE_1___default.a`
     }
 `;
 
-function ResourceList() {
+function ProductList() {
   const {
     loading,
     error,
     data
   } = Object(react_apollo__WEBPACK_IMPORTED_MODULE_2__["useQuery"])(GET_PRODUCTS_BY_ID, {
     variables: {
-      ids: store.get('ids')
+      ids: store_js__WEBPACK_IMPORTED_MODULE_4___default.a.get('ids')
     }
   });
-  return __jsx("div", null, __jsx("h1", null, "Product List"));
+  if (loading) return __jsx("div", null, "Loading...");
+  if (error) return __jsx("div", null, error.message);
+  console.log('this is data ', data);
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["ResourceList"], {
+    showHeader: true,
+    resourceName: {
+      singular: 'Product',
+      plural: 'Products'
+    },
+    items: data.nodes,
+    renderItem: item => {
+      const media = __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["Thumbnail"], {
+        source: item.images.edges[0] ? item.images.edges[0].node.originalSrc : '',
+        alt: item.images.edges[0] ? item.images.edges[0].altText : ''
+      });
+
+      const price = item.variants.edges[0].node.price;
+      return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["ResourceList"].Item, {
+        id: item.id,
+        media: media,
+        accessibilityLabel: `View details for ${item.title}`
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["Stack"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["Stack"].Item, {
+        fill: true
+      }, __jsx("h3", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["TextStyle"], {
+        variation: "strong"
+      }, item.title))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_3__["Stack"].Item, null, __jsx("p", null, "$", price))));
+    }
+  })));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (ResourceList);
+/* harmony default export */ __webpack_exports__["default"] = (ProductList);
 
 /***/ }),
 
@@ -178,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! store-js */ "store-js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _component_ResourceList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/ResourceList */ "./component/ResourceList.js");
+/* harmony import */ var _component_ProductList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/ProductList */ "./component/ProductList.js");
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
 
@@ -220,7 +250,7 @@ function Index() {
     onCancel: () => setResourceModal({
       open: false
     })
-  }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
+  }), emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["EmptyState"], {
     heading: "Discount your products temporarily",
     action: {
       content: 'Select products',
@@ -229,7 +259,7 @@ function Index() {
       })
     },
     image: img
-  }, __jsx("p", null, "Select products to change their price temporarily.")) : __jsx(_component_ResourceList__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
+  }, __jsx("p", null, "Select products to change their price temporarily."))) : __jsx(_component_ProductList__WEBPACK_IMPORTED_MODULE_4__["default"], null));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
@@ -267,17 +297,6 @@ module.exports = require("@shopify/app-bridge-react");
 /***/ (function(module, exports) {
 
 module.exports = require("@shopify/polaris");
-
-/***/ }),
-
-/***/ "apollo-boost":
-/*!*******************************!*\
-  !*** external "apollo-boost" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-boost");
 
 /***/ }),
 
