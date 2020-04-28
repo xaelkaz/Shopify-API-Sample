@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -209,7 +209,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! store-js */ "store-js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _component_ProductList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/ProductList */ "./component/ProductList.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
+
 
 
 
@@ -223,18 +226,30 @@ function Index() {
   } = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     open: false
   });
-  const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
+  const emptyState = !store_js__WEBPACK_IMPORTED_MODULE_3___default.a.get('ids');
 
-  const handleSelection = resources => {
+  function handleSelection(resources) {
     const idsFromResources = resources.selection.map(product => product.id);
     setResourceModal({
       open: false
     });
     store_js__WEBPACK_IMPORTED_MODULE_3___default.a.set('ids', idsFromResources);
-    console.log('this is product ids', store_js__WEBPACK_IMPORTED_MODULE_3___default.a.get('ids'));
-  };
+    const selectedProducts = resources.selection; //deleteApiData();
 
-  const emptyState = !store_js__WEBPACK_IMPORTED_MODULE_3___default.a.get('ids');
+    selectedProducts.map(product => makeApiCall(product));
+  }
+
+  function deleteApiData() {
+    const url = '/api/products';
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.delete(url);
+  }
+
+  async function makeApiCall(products) {
+    const url = '/api/products';
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(url, products).then(result => console.log(result)).catch(error => console.log(error));
+  }
+
+  const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
   return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_0__["Page"], null, __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
     primaryAction: {
       content: 'Select products',
@@ -266,7 +281,7 @@ function Index() {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -297,6 +312,17 @@ module.exports = require("@shopify/app-bridge-react");
 /***/ (function(module, exports) {
 
 module.exports = require("@shopify/polaris");
+
+/***/ }),
+
+/***/ "axios":
+/*!************************!*\
+  !*** external "axios" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ }),
 
