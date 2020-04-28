@@ -1,4 +1,5 @@
 
+## SETUP 
 - Obtener Shopify secret key
 [Link](https://shopify.dev/tutorials/build-a-shopify-app-with-node-and-react/embed-your-app-in-shopify#get-a-shopify-api-key)
 ```js
@@ -26,16 +27,14 @@ const {
 ```
 
 - Obtener los parametros de validacion de Shopify
+Se debe crear una aplicacion dentre de shopify partners que debe estar configurada con la url de nuestra direccion y debe ser instalada,
+prueba en tienda en desarrollo.
 
-
-- Extend App Component
-https://shopify.dev/tutorials/build-a-shopify-app-with-node-and-react
 
 - Polairs
   https://polaris.shopify.com/
 
-- https://shopify.dev/tools/app-bridge
+- Obtener datos del API de shopify
+https://shopify-graphiql-app.shopifycloud.com/login
 
-- https://polaris.shopify.com/experiences/layout
-
-- https://shopify-graphiql-app.shopifycloud.com/login
+[!diagram](resource/shopify.png)

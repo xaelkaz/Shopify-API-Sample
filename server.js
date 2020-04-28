@@ -28,7 +28,7 @@ app.prepare().then(() => {
   const router = new KoaRouter();
 
 
-var products = [];
+const products = [];
 
 router.get('/api/products', async (ctx) => {
   try {
