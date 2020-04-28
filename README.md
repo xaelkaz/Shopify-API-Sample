@@ -37,4 +37,4 @@ prueba en tienda en desarrollo.
 - Obtener datos del API de shopify
 https://shopify-graphiql-app.shopifycloud.com/login
 
-[!diagram](resource/shopify.png)
+![Imagen](resource/shopify.png)
